@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="ru"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">hometask3.2</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">User.kt</span></div><h1>User.kt</h1><pre class="source lang-java linenums"><span class="pc" id="L1">class User(val id: Int, val name: String) {</span>
+<span class="pc" id="L2">    var notes: ArrayList&lt;Notes&gt; = ArrayList()</span>
+
+    fun add(title: String, text: String) {
+<span class="pc bpc" id="L5" title="1 of 2 branches missed.">        val noteId = if (notes.isEmpty()) 1 else notes.last().id + 1</span>
+<span class="fc" id="L6">        val note = Notes(noteId, this.id, title, text)</span>
+<span class="fc" id="L7">        notes.add(note)</span>
+<span class="fc" id="L8">    }</span>
+
+    fun createComment(noteId: Int, message: String) {
+<span class="pc bpc" id="L11" title="1 of 2 branches missed.">        val commentId = if (notes.get(noteId - 1).comments.isEmpty()) 1 else notes.get(noteId - 1).comments.last().id + 1</span>
+<span class="fc" id="L12">        val msg = Comments(commentId, this.id, message)</span>
+<span class="fc bfc" id="L13" title="All 2 branches covered.">        for (note: Notes in notes) {</span>
+<span class="pc bpc" id="L14" title="1 of 2 branches missed.">            if (note.id == noteId) {</span>
+<span class="fc" id="L15">                note.comments.add(msg)</span>
+            }
+        }
+<span class="fc" id="L18">    }</span>
+
+    fun delete(noteId: Int) {
+<span class="fc bfc" id="L21" title="All 2 branches covered.">        for (note: Notes in notes) {</span>
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">            if (note.id == noteId) {</span>
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">                if (!note.isDeleted) {</span>
+<span class="fc" id="L24">                    note.isDeleted = true</span>
+<span class="nc" id="L25">                } else return</span>
+            }
+        }
+<span class="fc" id="L28">    }</span>
+
+    fun deleteComment(noteId: Int, commentId: Int) {
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        for (note: Notes in notes) {</span>
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">            if (note.id == noteId) {</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">                if (!note.comments.get(commentId - 1).isDeleted) {</span>
+<span class="fc" id="L34">                    note.comments.get(commentId - 1).isDeleted = true</span>
+<span class="nc" id="L35">                } else return</span>
+            }
+        }
+<span class="fc" id="L38">    }</span>
+
+    fun edit(noteId: Int, newTitle: String, newText: String) {
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        for ((index, note) in notes.withIndex()) {</span>
+<span class="pc bpc" id="L42" title="1 of 2 branches missed.">            if (note.id == noteId) {</span>
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">                if (note.isDeleted) {</span>
+<span class="nc" id="L44">                    return</span>
+                }
+<span class="fc" id="L46">                val editedNote = note.copy(title = newTitle, text = newText)</span>
+<span class="fc" id="L47">                notes[index] = editedNote</span>
+            }
+        }
+<span class="fc" id="L50">    }</span>
+
+    fun editComment(noteId: Int, commentId: Int, newMessage: String) {
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        for (note: Notes in notes) {</span>
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">            if (note.id == noteId) {</span>
+<span class="pc bpc" id="L55" title="1 of 2 branches missed.">                if (note.isDeleted) {</span>
+<span class="nc" id="L56">                    return</span>
+                }
+<span class="fc bfc" id="L58" title="All 2 branches covered.">                for ((index, comment) in note.comments.withIndex()) {</span>
+<span class="pc bpc" id="L59" title="1 of 2 branches missed.">                    if (comment.id == commentId) {</span>
+<span class="pc bpc" id="L60" title="1 of 2 branches missed.">                        if (comment.isDeleted) {</span>
+<span class="nc" id="L61">                            return</span>
+                        }
+<span class="fc" id="L63">                        val editedComment = comment.copy(message = newMessage)</span>
+<span class="fc" id="L64">                        note.comments[index] = editedComment</span>
+                    }
+                }
+            }
+        }
+<span class="fc" id="L69">    }</span>
+
+    fun get(): ArrayList&lt;Notes&gt; {
+<span class="fc" id="L72">        val notesList = ArrayList&lt;Notes&gt;()</span>
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        for (note: Notes in notes) {</span>
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">            if (note.isDeleted){</span>
+<span class="nc" id="L75">                continue</span>
+            }
+<span class="fc" id="L77">            notesList.add(note)</span>
+        }
+<span class="fc" id="L79">        return notesList</span>
+    }
+
+    fun getById(noteId: Int): Notes {
+<span class="fc bfc" id="L83" title="All 2 branches covered.">        for (note: Notes in notes) {</span>
+<span class="fc bfc" id="L84" title="All 2 branches covered.">            if (note.id == noteId) {</span>
+<span class="pc bpc" id="L85" title="1 of 2 branches missed.">                if (note.isDeleted){</span>
+<span class="nc" id="L86">                    return throw NoteNotFoundException()</span>
+                }
+<span class="fc" id="L88">                return note</span>
+            }
+        }
+<span class="fc" id="L91">        return throw NoteNotFoundException()</span>
+    }
+
+    fun getComments(noteId: Int): ArrayList&lt;Comments&gt; {
+<span class="fc" id="L95">        val commentsList = ArrayList&lt;Comments&gt;()</span>
+<span class="fc bfc" id="L96" title="All 2 branches covered.">        for (note: Notes in notes){</span>
+<span class="fc bfc" id="L97" title="All 2 branches covered.">            for (comment: Comments in note.comments) {</span>
+<span class="pc bpc" id="L98" title="1 of 2 branches missed.">                if (comment.isDeleted) {</span>
+<span class="nc" id="L99">                    continue</span>
+                }
+<span class="fc" id="L101">                commentsList.add(comment)</span>
+            }
+        }
+<span class="fc" id="L104">        return commentsList</span>
+    }
+
+    fun restoreComment(noteId: Int, commentId: Int): Boolean {
+<span class="fc" id="L108">        var result: Boolean = false</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        for (note: Notes in notes) {</span>
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">            if (note.id == noteId) {</span>
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">                if (!note.comments.get(commentId - 1).isDeleted) {</span>
+<span class="nc" id="L112">                    break</span>
+                }
+<span class="fc" id="L114">                note.comments.get(commentId - 1).isDeleted = false</span>
+<span class="fc" id="L115">                result = true</span>
+            }
+        }
+<span class="fc" id="L118">        return result</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

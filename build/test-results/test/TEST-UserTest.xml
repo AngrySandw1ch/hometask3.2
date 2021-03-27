@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="UserTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2021-03-27T15:45:53" hostname="ARTEM" time="0.08">
+  <properties/>
+  <testcase name="editComment" classname="UserTest" time="0.016"/>
+  <testcase name="delete" classname="UserTest" time="0.0"/>
+  <testcase name="createComment" classname="UserTest" time="0.0"/>
+  <testcase name="getById" classname="UserTest" time="0.0"/>
+  <testcase name="add" classname="UserTest" time="0.0"/>
+  <testcase name="get" classname="UserTest" time="0.058"/>
+  <testcase name="edit" classname="UserTest" time="0.0"/>
+  <testcase name="restoreComment" classname="UserTest" time="0.0"/>
+  <testcase name="deleteComment" classname="UserTest" time="0.0"/>
+  <testcase name="getById_shouldThrowException" classname="UserTest" time="0.0"/>
+  <testcase name="getComments" classname="UserTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
