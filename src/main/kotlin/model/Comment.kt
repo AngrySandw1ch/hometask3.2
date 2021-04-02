@@ -1,6 +1,8 @@
-data class Comments(
+package model
+
+data class Comment(
     val id: Int,
-    val ownerId: Int,
+    val commentTitle: String,
     val message: String,
     var isDeleted: Boolean = false
 ) {

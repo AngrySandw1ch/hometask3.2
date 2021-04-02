@@ -1,36 +1,43 @@
 fun main() {
-    val user1 = User(1, "John")
-    user1.add("note 1", "text 1")
-    user1.add("note 2", "text 2")
+    val user1 = 1
+    val user2 = 2
 
-    user1.createComment(1, "comment 1")
-    user1.createComment(1, "comment 2")
-    user1.createComment(1, "comment 3")
+    val note1 = NotesAndCommentsManager.addNote(user1, "Note 1", "text 1")
+    val note2 = NotesAndCommentsManager.addNote(user1, "Note 2", "text 2")
 
-    user1.delete(2)
-    //println(user1.notes.get(0).isDeleted)
+    val note3 = NotesAndCommentsManager.addNote(user2, "Note 3", "text 3")
+    val note4 = NotesAndCommentsManager.addNote(user2, "Note 4", "text 4")
 
-    user1.deleteComment(1, 3)
-    //println(user1.notes.get(0).comments.get(2).isDeleted)
+    NotesAndCommentsManager.addComment(user1, note1, "comment 1", "text 1")
+    NotesAndCommentsManager.addComment(user1, note2, "comment 2", "text 2")
 
-    user1.edit(1, "note 1.1", "text 1.1")
-    //println(user1.notes.get(0))
+    //println(NotesAndCommentsManager.getNotes(user1))
 
-    user1.editComment(1,1,"comment 1.1")
-    //println(user1.notes.get(0))
+    NotesAndCommentsManager.deleteNote(user1, note2)
+    //println(NotesAndCommentsManager.getNotes(user1))
 
-    val notes = user1.get()
-    //println(notes)
+    //println(NotesAndCommentsManager.getComments(user1))
+    //NotesAndCommentsManager.deleteComment(user1, note1)
 
-    val note = user1.getById(1)
+    //println(NotesAndCommentsManager.getComments(user1))
+
+    NotesAndCommentsManager.editNote(user1, "new title", "new text", note1)
+    //println(NotesAndCommentsManager.getNotes(user1))
+
+    //println(NotesAndCommentsManager.getComments(user1))
+    NotesAndCommentsManager.editComment(user1, "new comment title", "new comment text", note1)
+    //println(NotesAndCommentsManager.getComments(user1))
+
+    val note = NotesAndCommentsManager.getNoteById(user1, note1)
     //println(note)
 
-    val comments = user1.getComments(1)
-    //println(comments)
+    val comment = NotesAndCommentsManager.getCommentById(user1, note1)
+    //println(comment)
 
-    val isRestored = user1.restoreComment(1, 3)
-    //println(isRestored)
-
+    NotesAndCommentsManager.deleteComment(user1, note2)
+    println(NotesAndCommentsManager.getComments(user1))
+    NotesAndCommentsManager.restoreComment(user1, note2)
+    println(NotesAndCommentsManager.getComments(user1))
 
 
 }
